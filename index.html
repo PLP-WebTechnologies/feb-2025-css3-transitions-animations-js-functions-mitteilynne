@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS3 Transitions & JS Animation with Local Storage</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .animated-box {
+      width: 100px;
+      height: 100px;
+      margin: 30px auto;
+      background-color: coral;
+      transition: transform 0.5s ease;
+    }
+    .animate {
+      transform: scale(1.5) rotate(45deg);
+    }
+  </style>
+</head>
+<body>
+  <h1>Preferences & Animation Demo</h1>
+  <div class="animated-box" id="box"></div>
+  <button id="animateBtn">Animate Box</button>
+  <br /><br />
+  <input type="color" id="colorPicker" />
+  <button id="saveColor">Save Color</button>
+
+  <script>
+    // Retrieve and apply saved color preference from localStorage
+    const box = document.getElementById('box');
+    const savedColor = localStorage.getItem('boxColor');
+    if (savedColor) {
+      box.style.backgroundColor = savedColor;
+    }
+
+    // Save user preference for color
+    document.getElementById('saveColor').addEventListener('click', () => {
+      const color = document.getElementById('colorPicker').value;
+      localStorage.setItem('boxColor', color);
+      box.style.backgroundColor = color;
+    });
+
+    // Animate the box on button click
+    document.getElementById('animateBtn').addEventListener('click', () => {
+      box.classList.add('animate');
+      setTimeout(() => {
+        box.classList.remove('animate');
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
